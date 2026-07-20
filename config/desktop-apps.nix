@@ -1,0 +1,32 @@
+{
+  pkgs,
+  overrides,
+  ...
+}:
+{
+  environment.systemPackages = with pkgs; [
+    ghostty
+    (overrides.vivaldi.override {
+      proprietaryCodecs = true;
+      enableWidevine = true;
+      commandLineArgs = "--enable-features=AutoPictureInPictureForVideoPlayback,BrowserInitiatedAutomaticPictureInPicture";
+    })
+    mailspring
+    signal-desktop
+    equibop
+    chatterino2
+    libreoffice-fresh
+    overrides.parsec-bin
+    ente-auth
+    telegram-desktop
+    via
+    bitwarden-desktop
+  ];
+
+  services.udev.packages = [ pkgs.via ];
+
+  programs.appimage = {
+    enable = true;
+    binfmt = true;
+  };
+}

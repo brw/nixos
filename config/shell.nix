@@ -1,0 +1,33 @@
+{ pkgs, ... }:
+{
+  programs.fish = {
+    enable = true;
+    useBabelfish = true;
+  };
+
+  programs.atuin = {
+    enable = true;
+    flags = [ "--disable-up-arrow" ];
+    settings = {
+      search_mode = "daemon-fuzzy";
+      daemon = {
+        enabled = true;
+        autostart = true; # TODO: set false and get socket activation working
+      };
+    };
+  };
+
+  # systemd.user.sockets.atuin-daemon.socketConfig.ListenStream = lib.mkForce "%t/atuin.sock";
+
+  programs.bat.enable = true;
+
+  services.locate = {
+    enable = true;
+    package = pkgs.plocate;
+  };
+
+  environment.systemPackages = with pkgs; [
+    starship
+    atuin-desktop
+  ];
+}
