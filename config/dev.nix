@@ -20,7 +20,7 @@
 
   services.sysprof.enable = true;
 
-  programs.sysdig.enable = true;
+  # programs.sysdig.enable = true;
 
   # programs.ghidra.enable = true;
 
