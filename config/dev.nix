@@ -121,5 +121,6 @@
     inputs'.config-lsp.packages.default
     superhtml
     zls
+    openssl_4_0
   ];
 }
