@@ -1,4 +1,10 @@
 {
+  boot.binfmt = {
+    emulatedSystems = [ "aarch64-linux" ];
+    # makes it work with containers
+    preferStaticEmulators = true;
+  };
+
   virtualisation = {
     libvirtd = {
       enable = true;
