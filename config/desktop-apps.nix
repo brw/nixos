@@ -21,6 +21,8 @@
     telegram-desktop
     via
     bitwarden-desktop
+    spotify
+    spicetify-cli
   ];
 
   services.udev.packages = [ pkgs.via ];
