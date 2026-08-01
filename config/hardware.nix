@@ -48,7 +48,8 @@
   hardware.intel-gpu-tools.enable = true;
 
   hardware.i2c.enable = true;
-  services.ddccontrol.enable = true;
+  # TODO: ddcci-driver broken
+  # services.ddccontrol.enable = true;
 
   hardware.sensor.iio.enable = true;
 
