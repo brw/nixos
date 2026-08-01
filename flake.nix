@@ -61,6 +61,8 @@
     tg.url = "github:alyraffauf/tg";
 
     nix-hyperfine.url = "github:Mic92/nix-hyperfine";
+
+    nix-bun.url = "github:ryoppippi/nix-bun";
   };
 
   outputs =
