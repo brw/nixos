@@ -67,7 +67,7 @@
     nixfmt-rs
     # vtsls
     typescript-go
-    bun
+    overrides.bun-bin
     pnpm
     docker-client
     dockerfmt

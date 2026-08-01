@@ -1,5 +1,7 @@
 { pkgs, inputs }:
 rec {
+  bun-bin = import ./bun-bin.nix { inherit pkgs; };
+
   emmylua-ls = import ./emmylua-ls.nix { inherit pkgs; };
 
   equicord = import ./equicord.nix { inherit pkgs inputs; };
