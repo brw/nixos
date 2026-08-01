@@ -1,1 +1,4 @@
-{ pkgs, ffmpeg }: pkgs.mpv-unwrapped.override { inherit ffmpeg; }
+{ pkgs, ffmpeg }:
+pkgs.mpv-unwrapped.override {
+  inherit ffmpeg;
+}

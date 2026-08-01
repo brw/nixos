@@ -14,7 +14,7 @@ export GITHUB_TOKEN := env("GITHUB_TOKEN", `gh auth token`)
 default:
   just remote \
     "just update" \
-    "just push 'bamibal:/etc/nixos'" \
+    "just push 'bamibal:/etc/nixos' --update" \
     "just switch"
 
 [no-exit-message]
@@ -23,15 +23,15 @@ remote *args="just switch": push
 
 update *args:
   nix flake update --access-tokens "github.com=$GITHUB_TOKEN" {{ args }}
-  # nix flake archive --json | jq -r '.path'
-  nix flake prefetch-inputs
+  nix flake archive
+  # nix flake prefetch-inputs
 
-sync from to:
-  rsync -az --exclude "result" --delete --out-format '%n' {{ from }} {{ to }} | awk '!/(\/$|\.git|\.jj)/'
+sync from to *args:
+  rsync -az {{args}} --exclude "result" --delete --out-format '%n' {{ from }} {{ to }} | awk '!/(\/$|\.git|\.jj)/'
 
-push to="haring:nixos": (sync "." to)
+push to="haring:nixos" *args: (sync "." to args)
 
-pull from="bamibal:/etc/nixos/": (sync from ".")
+pull from="bamibal:/etc/nixos/" *args: (sync from "." args)
 
 [arg('host', long="host", short="c", help="which host configuration to build")]
 build host=host *args:
