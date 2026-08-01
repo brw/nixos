@@ -60,3 +60,6 @@ bench-eval-time host=host: push
 
 bench-eval-time-local host=host:
   nix-hyperfine --eval .#nixosConfigurations.{{ host }}.config.system.build.toplevel -- -w2 -r3
+
+diff one two:
+  nix-diff --character-oriented --context=1 {{ one }} {{ two }}
