@@ -3,8 +3,8 @@
   boot = {
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
-    kernelPackages = pkgs.linuxPackages_latest;
-    # kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-x86_64-v3;
+    # kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-x86_64-v3;
     kernelModules = [ "ntsync" ];
     blacklistedKernelModules = [ "amdgpu" ]; # TODO: figure out why my dGPU randomly crashes when undocked
     kernelParams = [
