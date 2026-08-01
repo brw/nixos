@@ -11,6 +11,7 @@
       "wireshark"
       "keylightd"
       "libvirtd"
+      "podman"
     ];
   };
 }
