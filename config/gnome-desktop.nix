@@ -94,6 +94,8 @@ in
   ];
 
   environment.sessionVariables = {
+    NIXOS_OZONE_WL = 1;
+
     # workaround for media file details in nautilus
     # https://github.com/NixOS/nixpkgs/issues/53631
     GST_PLUGIN_SYSTEM_PATH_1_0 = lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0" (
