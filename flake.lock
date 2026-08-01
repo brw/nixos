@@ -581,26 +581,6 @@
         "type": "github"
       }
     },
-    "nix-monitored": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1778497292,
-        "narHash": "sha256-vodUt55p0PXOaKK5xE1dldTxdtyuttbdGy0LvP8cCxQ=",
-        "owner": "ners",
-        "repo": "nix-monitored",
-        "rev": "4a7e1e7dcd0c1f7c2d063928511ebd72afea7e58",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ners",
-        "repo": "nix-monitored",
-        "type": "github"
-      }
-    },
     "nix-output-monitor": {
       "inputs": {
         "flake-utils": "flake-utils_2",
@@ -1046,7 +1026,6 @@
         "nix-cachyos-kernel": "nix-cachyos-kernel",
         "nix-gaming": "nix-gaming",
         "nix-index-database": "nix-index-database",
-        "nix-monitored": "nix-monitored",
         "nix-output-monitor": "nix-output-monitor",
         "nixcord": "nixcord",
         "nixos-cli": "nixos-cli",

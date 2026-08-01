@@ -29,9 +29,6 @@
 
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
 
-    nix-monitored.url = "github:ners/nix-monitored";
-    nix-monitored.inputs.nixpkgs.follows = "nixpkgs";
-
     nixcord.url = "github:FlameFlag/nixcord";
     nixcord.inputs.nixpkgs.follows = "nixpkgs";
 
