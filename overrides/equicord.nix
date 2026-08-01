@@ -3,12 +3,14 @@
   inputs,
   lib ? pkgs.lib,
   stdenvNoCC ? pkgs.stdenvNoCC,
+  fetchpatch2 ? pkgs.fetchpatch2,
   # writeShellScriptBin ? pkgs.writeShellScriptBin,
   nixcord ? inputs.nixcord,
   complete-discord-quest ? inputs.complete-discord-quest-src,
 }:
 let
   rawUpdateScript = lib.readFile "${nixcord.outPath}/pkgs/scripts/update-vencord-family.sh";
+
   updateScript =
     lib.replaceStrings
       [
@@ -42,7 +44,16 @@ nixcord.packages.${stdenvNoCC.hostPlatform.system}.equicord.overrideAttrs (
     #   hash = "sha256-WdSowp/yuPokdU7Sv/XBQOo/0JPs9AA5LRq6dx57Uyk=";
     # };
 
-    preBuild = ''
+    patches = (oldAttrs.patches or [ ]) ++ [
+      (fetchpatch2 {
+        url = "https://github.com/nicola02nb/completeDiscordQuest/pull/26.diff";
+        stripLen = 1;
+        extraPrefix = "src/userplugins/completeDiscordQuest/";
+        hash = "sha256-nE9s6fSt/z5kzMluGXcQE8mvdG+gnxuaRIycuxRZXeE=";
+      })
+    ];
+
+    prePatch = ''
       mkdir -p src/userplugins
       cp -r --no-preserve=mode ${complete-discord-quest} src/userplugins/completeDiscordQuest
     '';
