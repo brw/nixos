@@ -1,21 +1,12 @@
 {
   inputs = {
-    # nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.zst";
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.zst";
+    # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     # TODO: replace with something like https://github.com/katrinafyi/nix-patcher
     # nixpkgs-patcher.url = "github:gepbird/nixpkgs-patcher";
     # nixpkgs-patcher.url = "/home/bas/git/nixpkgs-patcher";
     nixpkgs-patcher.url = "github:brw/nixpkgs-patcher/tmp";
-    # rip Yorhel :(
-    nixpkgs-patch-ncdu = {
-      url = "https://github.com/NixOS/nixpkgs/pull/537648.diff";
-      flake = false;
-    };
-    nixpkgs-patch-ghostty = {
-      url = "https://github.com/NixOS/nixpkgs/pull/545447.diff";
-      flake = false;
-    };
 
     nix-output-monitor.url = "github:maralorn/nix-output-monitor";
 
@@ -30,7 +21,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    completeDiscordQuest-src = {
+    complete-discord-quest-src = {
       url = "github:nicola02nb/completeDiscordQuest";
       flake = false;
     };
@@ -110,9 +101,8 @@
       );
 
       mkNixosSystem = if hasNixpkgsPatches then nixpkgs-patcher.lib.nixosSystem else lib.nixosSystem;
-    in
-    {
-      nixosConfigurations.bamibal = mkNixosSystem (
+
+      bamibal = mkNixosSystem (
         {
           modules = [
             ./hardware-configuration.nix
@@ -146,6 +136,9 @@
           };
         }
       );
+    in
+    {
+      nixosConfigurations.bamibal = bamibal;
 
       packages = forAllSystems (pkgs: import ./pkgs { inherit pkgs inputs; });
     };

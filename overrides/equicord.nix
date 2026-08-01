@@ -5,7 +5,7 @@
   stdenvNoCC ? pkgs.stdenvNoCC,
   # writeShellScriptBin ? pkgs.writeShellScriptBin,
   nixcord ? inputs.nixcord,
-  completeDiscordQuest-src ? inputs.completeDiscordQuest-src,
+  complete-discord-quest ? inputs.complete-discord-quest-src,
 }:
 let
   rawUpdateScript = lib.readFile "${nixcord.outPath}/pkgs/scripts/update-vencord-family.sh";
@@ -44,7 +44,7 @@ nixcord.packages.${stdenvNoCC.hostPlatform.system}.equicord.overrideAttrs (
 
     preBuild = ''
       mkdir -p src/userplugins
-      cp -r ${completeDiscordQuest-src} src/userplugins/
+      cp -r --no-preserve=mode ${complete-discord-quest} src/userplugins/completeDiscordQuest
     '';
 
     buildPhase =
