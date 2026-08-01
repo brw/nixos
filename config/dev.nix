@@ -49,7 +49,7 @@
   };
 
   # TODO: https://github.com/Mic92/direnv-instant/issues/114
-  # programs.direnv-instant.enable = true;
+  programs.direnv-instant.enable = true;
 
   environment.systemPackages = with pkgs; [
     tree-sitter
