@@ -116,6 +116,7 @@
         {
           modules = [
             ./hardware-configuration.nix
+            ./modules
             ./config
             inputs.nix-index-database.nixosModules.default
             inputs.nix-gaming.nixosModules.platformOptimizations

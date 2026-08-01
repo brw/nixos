@@ -12,7 +12,6 @@
     ./gaming.nix
     ./gnome-desktop.nix
     ./hardware.nix
-    ./keylightd.nix
     ./locale.nix
     ./media.nix
     ./networking.nix

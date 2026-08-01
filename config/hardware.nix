@@ -65,6 +65,8 @@
 
   programs.yubikey-manager.enable = true;
 
+  services.keylightd.enable = true;
+
   environment.systemPackages = with pkgs; [
     (nvtopPackages.intel.override { amd = true; })
     intel-gpu-tools
