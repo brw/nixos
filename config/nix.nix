@@ -80,15 +80,16 @@
       # (i also know it's insecure but oh well, trade-offs when you don't have much compute)
       # TODO: https://github.com/manic-systems/ncro
       substituters = [
-        "https://nix-community.cachix.org?priority=1"
-        "https://cache.nixos.org?priority=2"
-        "https://watersucks.cachix.org?priority=3"
-        "https://nix-gaming.cachix.org?priority=4"
-        "https://cache.numtide.com?priority=5"
-        "https://cache.thalheim.io?priority=6"
-        "https://attic.xuyh0120.win/lantian?priority=7"
+        "https://cache.bas.sh?priority=1"
+        "https://nix-community.cachix.org?priority=2"
+        "https://cache.nixos.org?priority=3"
+        "https://watersucks.cachix.org?priority=4"
+        "https://nix-gaming.cachix.org?priority=5"
+        "https://cache.numtide.com?priority=6"
+        "https://cache.thalheim.io?priority=7"
+        "https://attic.xuyh0120.win/lantian?priority=8"
         # "ssh-ng://nix.bas.sh?priority=7&max-connections=10&compress=true"
-        "ssh-ng://nix.bas.sh?priority=8&compress=true"
+        "ssh-ng://nix.bas.sh?priority=9&compress=true"
         # "ssh-ng://eu.nixbuild.net?priority=9&compress=true"
       ];
 
@@ -98,6 +99,7 @@
       ];
 
       extra-trusted-public-keys = [
+        "cache.bas.sh:HR5UV8Png8fmmG1vCPHmNHyV+lwZPjP3Sk/BjxfGOFk="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "cache.lix.systems:aBnZUw8zA7H35Cz2RyKFVs3H4PlGTLawyY5KRbvJR8o="
         "bas.cachix.org-1:LblbDYEqJwBSbBnM4y+uFbBXItBUuvOIYFnr23MYtBk="
