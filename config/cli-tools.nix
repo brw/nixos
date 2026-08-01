@@ -32,5 +32,6 @@
     hl-log-viewer
     multitime
     multitail
+    httptap
   ];
 }
