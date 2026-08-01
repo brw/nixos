@@ -87,6 +87,7 @@
     jj-vine
     inputs'.tg.packages.default
     gh
+    glab
     delta
     jq
     ijq

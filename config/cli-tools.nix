@@ -28,6 +28,7 @@
     parallel-full
     aria2
     hyperfine
+    poop
     hl-log-viewer
   ];
 }
