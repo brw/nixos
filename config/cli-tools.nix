@@ -30,5 +30,7 @@
     hyperfine
     poop
     hl-log-viewer
+    multitime
+    multitail
   ];
 }
