@@ -22,7 +22,9 @@ remote *args="just switch": push
   ssh haring -qtR 2345:localhost:22  "cd nixos && {{ join_list(args, ' && ') }}"
 
 update *args:
-  nom flake update --access-tokens "github.com=$GITHUB_TOKEN" {{ args }}
+  nix flake update --access-tokens "github.com=$GITHUB_TOKEN" {{ args }}
+  # nix flake archive --json | jq -r '.path'
+  nix flake prefetch-inputs
 
 sync from to:
   rsync -az --exclude "result" --delete --out-format '%n' {{ from }} {{ to }} | awk '!/(\/$|\.git|\.jj)/'
@@ -47,8 +49,8 @@ switch host=host *args: (build host args)
 
 copy host=host:
   #!/usr/bin/env -S parallel --shebang --line-buffer
-  nix copy ./result --to "ssh://{{ host }}?compress=true" -s
-  nix copy ./result --derivation --to "ssh://{{ host }}?compress=true" -s
+  nix copy ./result --to "ssh-ng://{{ host }}?compress=true" -s
+  nix copy ./result --derivation --to "ssh-ng://{{ host }}?compress=true" -s
 
 eval host=host *args:
   nix eval --raw {{ args }} .#nixosConfigurations.{{ host }}.config.system.build.toplevel
@@ -57,4 +59,4 @@ bench-eval-time host=host: push
   ssh haring -t nix-hyperfine --eval ./nixos#nixosConfigurations.{{ host }}.config.system.build.toplevel -- -w2 -r3
 
 bench-eval-time-local host=host:
-  time nix eval --no-eval-cache .#nixosConfigurations.{{ host }}.config.system.build.toplevel
+  nix-hyperfine --eval .#nixosConfigurations.{{ host }}.config.system.build.toplevel -- -w2 -r3

@@ -16,10 +16,6 @@
       url = "https://github.com/NixOS/nixpkgs/pull/545447.diff";
       flake = false;
     };
-    nixpkgs-patch-vivaldi-ffmpeg-codecs = {
-      url = "https://github.com/NixOS/nixpkgs/pull/547639.diff";
-      flake = false;
-    };
 
     nix-output-monitor.url = "github:maralorn/nix-output-monitor";
 
@@ -29,8 +25,10 @@
 
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
 
-    nixcord.url = "github:FlameFlag/nixcord";
-    nixcord.inputs.nixpkgs.follows = "nixpkgs";
+    nixcord = {
+      url = "github:FlameFlag/nixcord";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     completeDiscordQuest-src = {
       url = "github:nicola02nb/completeDiscordQuest";
@@ -70,6 +68,8 @@
     # };
 
     tg.url = "github:alyraffauf/tg";
+
+    nix-hyperfine.url = "github:Mic92/nix-hyperfine";
   };
 
   outputs =

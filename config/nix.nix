@@ -45,6 +45,7 @@
     dix
     inputs'.fast-nix-gc.packages.default
     nix-tree
+    inputs'.nix-hyperfine.packages.default
   ];
 
   nix = {
@@ -170,15 +171,6 @@
     enable = true;
     package = inputs'.nixos-cli.packages.default.override (old: {
       nix = config.nix.package;
-      nixos-cli-unwrapped = old.nixos-cli-unwrapped.overrideAttrs (oldAttrs: {
-        patches = (oldAttrs.patches or [ ]) ++ [
-          # add lib to repl scope
-          (pkgs.fetchpatch2 {
-            url = "https://github.com/nix-community/nixos-cli/pull/236.diff";
-            hash = "sha256-NSE42DfnTxyZKoucG9Ze9hiZd1MJZ8iBYMmSCS3KJfw=";
-          })
-        ];
-      });
     });
 
     settings = {
