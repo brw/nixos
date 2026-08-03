@@ -67,7 +67,6 @@
     nixfmt-rs
     # vtsls
     typescript-go
-    rust-analyzer
     bun
     pnpm
     docker-client
@@ -111,6 +110,7 @@
     actionlint
     gopls
     rust-analyzer
+    rustfmt
     vscode-js-debug
     glsl_analyzer
     glslviewer
