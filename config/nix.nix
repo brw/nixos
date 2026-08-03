@@ -68,13 +68,15 @@
       keep-failed = true;
       keep-going = true;
 
+      auto-optimise-store = true;
+
       # idk if i really need this but it seems nice i guess
       use-xdg-base-directories = true;
 
       show-trace = true;
 
-      # i know it's slow but building from source is slower
-      # (i also know it's insecure but oh well, it's a trade-off when you don't have much compute)
+      # i know it's slow to have so many substituters but building from source is slower
+      # (i also know it's insecure but oh well, trade-offs when you don't have much compute)
       # TODO: https://github.com/manic-systems/ncro
       substituters = [
         "https://nix-community.cachix.org?priority=1"
@@ -153,15 +155,15 @@
     enable = true;
     package = inputs'.fast-nix-gc.packages.default;
     automatic = true;
-    dates = "weekly";
-    deleteOlderThan = "30d";
-    keepRecent = "1d";
+    dates = "daily";
+    deleteOlderThan = "7d";
+    keepRecent = "3d";
   };
 
   services.fast-nix-optimise = {
     enable = true;
     automatic = true;
-    dates = "weekly";
+    dates = "daily";
   };
 
   programs.nixos-cli = {
