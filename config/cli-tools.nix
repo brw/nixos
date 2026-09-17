@@ -33,5 +33,10 @@
     multitime
     multitail
     httptap
+    upterm
+    fastfetch
+    hyfetch
+    websocat
+    ipinfo
   ];
 }
