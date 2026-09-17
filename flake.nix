@@ -104,43 +104,44 @@
 
       mkNixosSystem = if hasNixpkgsPatches then nixpkgs-patcher.lib.nixosSystem else lib.nixosSystem;
 
-      bamibal = mkNixosSystem (
-        {
-          modules = [
-            ./hardware-configuration.nix
-            ./modules
-            ./config
-            inputs.nix-index-database.nixosModules.default
-            inputs.nix-gaming.nixosModules.platformOptimizations
-            inputs.nixos-cli.nixosModules.nixos-cli
-            inputs.direnv-instant.nixosModules.direnv-instant
-            inputs.fast-nix-gc.nixosModules.default
-            (
-              { config, ... }:
-              {
-                _module.args = rec {
-                  inputs' = lib.mapAttrs (
-                    _: lib.mapAttrs (_: v: v.${config.nixpkgs.hostPlatform.system} or v)
-                  ) inputs;
-                  self' = inputs'.self;
-                  pkgs' = self'.packages;
-                };
-              }
-            )
-          ];
-          specialArgs = { inherit inputs self; };
-        }
-        // lib.optionalAttrs hasNixpkgsPatches {
-          nixpkgsPatcher = {
-            inherit inputs;
-            enableTroubleshootingShell = false;
-            setNixpkgsFlakeSourceToPatched = true;
-          };
-        }
-      );
     in
     {
-      nixosConfigurations.bamibal = bamibal;
+      nixosConfigurations = {
+        bamibal = mkNixosSystem (
+          {
+            modules = [
+              ./hardware-configuration.nix
+              ./modules
+              ./config
+              inputs.nix-index-database.nixosModules.default
+              inputs.nix-gaming.nixosModules.platformOptimizations
+              inputs.nixos-cli.nixosModules.nixos-cli
+              inputs.direnv-instant.nixosModules.direnv-instant
+              inputs.fast-nix-gc.nixosModules.default
+              (
+                { config, ... }:
+                {
+                  _module.args = rec {
+                    inputs' = lib.mapAttrs (
+                      _: lib.mapAttrs (_: v: v.${config.nixpkgs.hostPlatform.system} or v)
+                    ) inputs;
+                    self' = inputs'.self;
+                    pkgs' = self'.packages;
+                  };
+                }
+              )
+            ];
+            specialArgs = { inherit inputs self; };
+          }
+          // lib.optionalAttrs hasNixpkgsPatches {
+            nixpkgsPatcher = {
+              inherit inputs;
+              enableTroubleshootingShell = false;
+              setNixpkgsFlakeSourceToPatched = true;
+            };
+          }
+        );
+      };
 
       packages = forAllSystems (pkgs: import ./pkgs { inherit pkgs inputs; });
     };
