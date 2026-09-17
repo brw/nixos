@@ -64,10 +64,6 @@
         type = "indirect";
         id = "nixpkgs";
       };
-      b.to = {
-        type = "git";
-        url = "/etc/nixos#nixosConfiguration.bamibal";
-      };
     };
 
     settings = {
