@@ -12,7 +12,7 @@
       search_mode = "daemon-fuzzy";
       daemon = {
         enabled = true;
-        autostart = true; # TODO: set false and get socket activation working
+        autostart = true; # TODO: get socket activation working instead
       };
     };
   };

@@ -29,7 +29,7 @@
     };
 
     complete-discord-quest-src = {
-      url = "github:nicola02nb/completeDiscordQuest";
+      url = "github:djdoolky76/completeDiscordQuest";
       flake = false;
     };
 
@@ -60,10 +60,10 @@
     # config-lsp.url = "github:Myzel394/config-lsp";
     config-lsp.url = "github:brw/config-lsp";
 
-    # equicord-src = {
-    #   url = "github:Equicord/Equicord";
-    #   flake = false;
-    # };
+    equicord-src = {
+      url = "github:Equicord/Equicord";
+      flake = false;
+    };
 
     tg.url = "github:alyraffauf/tg";
 
@@ -71,10 +71,17 @@
 
     nix-bun.url = "github:ryoppippi/nix-bun";
 
+    importPnpmLock = {
+      url = "github:scrumplex/importPnpmLock.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     freed-wu-nur = {
       url = "github:Freed-Wu/nur-packages";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # izlix.url = "github:isabelroses/izlix";
   };
 
   outputs =
@@ -115,7 +122,6 @@
       );
 
       mkNixosSystem = if hasNixpkgsPatches then nixpkgs-patcher.lib.nixosSystem else lib.nixosSystem;
-
     in
     {
       nixosConfigurations = {
@@ -132,14 +138,21 @@
               inputs.direnv-instant.nixosModules.direnv-instant
               inputs.fast-nix-gc.nixosModules.default
               (
-                { config, ... }:
+                {
+                  config,
+                  pkgs,
+                  lib,
+                  ...
+                }:
                 {
                   _module.args = rec {
                     inputs' = lib.mapAttrs (
                       _: lib.mapAttrs (_: v: v.${config.nixpkgs.hostPlatform.system} or v)
                     ) inputs;
-                    self' = inputs'.self;
-                    pkgs' = self'.packages;
+
+                    overrides = pkgs.callPackage ./overrides { inherit inputs; };
+
+                    localPackages = (pkgs.callPackage ./pkgs { }) // overrides;
                   };
                 }
               )
@@ -156,6 +169,8 @@
         );
       };
 
-      packages = forAllSystems (pkgs: import ./pkgs { inherit pkgs inputs; });
+      legacyPackages = forAllSystems (pkgs: pkgs.callPackage ./pkgs { });
+
+      packages = self.legacyPackages;
     };
 }

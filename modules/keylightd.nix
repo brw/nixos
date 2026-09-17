@@ -1,6 +1,6 @@
 {
   lib,
-  pkgs',
+  pkgs,
   config,
   ...
 }:
@@ -13,7 +13,7 @@ in
 
     package = lib.mkOption {
       type = lib.types.package;
-      default = pkgs'.keylightd;
+      default = pkgs.keylightd;
       defaultText = "pkgs.keylightd";
       description = "keylightd package to use";
       example = lib.literalExpression "pkgs.keylightd";
@@ -21,7 +21,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ pkgs'.keylightd ];
+    environment.systemPackages = [ cfg.package ];
 
     users = {
       users.keylightd = {

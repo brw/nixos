@@ -16,7 +16,6 @@
     ./media.nix
     ./networking.nix
     ./nix.nix
-    ./overrides.nix
     ./shell.nix
     ./ssh.nix
     ./swap.nix

@@ -37,15 +37,15 @@
     "complete-discord-quest-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1776358165,
-        "narHash": "sha256-H+OtmiIRk5olME75h4+o3lQhNOBo7gXbTpiwz5BbE/M=",
-        "owner": "nicola02nb",
+        "lastModified": 1786407192,
+        "narHash": "sha256-vFObXbYlau7ky21aixSVOqXESuiSTEpOz+Uu+p3gO0M=",
+        "owner": "djdoolky76",
         "repo": "completeDiscordQuest",
-        "rev": "5a4a66493048c80df9c0176fe48e7f0cdf998450",
+        "rev": "c0ab124393dea847354dd9f341562a205e0d0bac",
         "type": "github"
       },
       "original": {
-        "owner": "nicola02nb",
+        "owner": "djdoolky76",
         "repo": "completeDiscordQuest",
         "type": "github"
       }
@@ -144,6 +144,22 @@
       "original": {
         "owner": "Mic92",
         "repo": "direnv-instant",
+        "type": "github"
+      }
+    },
+    "equicord-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1789423723,
+        "narHash": "sha256-EzBEAcvo1GxWJ/RrWGJegOGc6Cq06FkM5w5yCP/JAQ0=",
+        "owner": "Equicord",
+        "repo": "Equicord",
+        "rev": "56c4dd99b4560aff00e4a6e57da9626b8a910bd0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Equicord",
+        "repo": "Equicord",
         "type": "github"
       }
     },
@@ -436,7 +452,7 @@
     },
     "flake-utils_2": {
       "inputs": {
-        "systems": "systems_4"
+        "systems": "systems_5"
       },
       "locked": {
         "lastModified": 1731533236,
@@ -603,12 +619,33 @@
         "type": "github"
       }
     },
+    "importPnpmLock": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "systems": "systems_3"
+      },
+      "locked": {
+        "lastModified": 1786037097,
+        "narHash": "sha256-k3Z/oMLgS4OdCRJlakczcM1Rq2O+l67g0EChInZOYWk=",
+        "owner": "scrumplex",
+        "repo": "importPnpmLock.nix",
+        "rev": "4bd9cc54e6a5431930b4d09898e1ef49cb2ed241",
+        "type": "github"
+      },
+      "original": {
+        "owner": "scrumplex",
+        "repo": "importPnpmLock.nix",
+        "type": "github"
+      }
+    },
     "llm-agents": {
       "inputs": {
         "bun2nix": "bun2nix",
         "flake-parts": "flake-parts_3",
         "nixpkgs": "nixpkgs_7",
-        "systems": "systems_3",
+        "systems": "systems_4",
         "treefmt-nix": "treefmt-nix_3"
       },
       "locked": {
@@ -1326,8 +1363,10 @@
         "config-lsp": "config-lsp",
         "determinate": "determinate",
         "direnv-instant": "direnv-instant",
+        "equicord-src": "equicord-src",
         "fast-nix-gc": "fast-nix-gc",
         "freed-wu-nur": "freed-wu-nur",
+        "importPnpmLock": "importPnpmLock",
         "llm-agents": "llm-agents",
         "nautilus-raw-thumbnails": "nautilus-raw-thumbnails",
         "nh": "nh",
@@ -1393,6 +1432,21 @@
       }
     },
     "systems_4": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
+    "systems_5": {
       "locked": {
         "lastModified": 1681028828,
         "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",

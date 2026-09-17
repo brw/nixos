@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, localPackages, ... }:
 {
   hardware.enableAllFirmware = true;
 
@@ -60,13 +60,16 @@
 
   services.fwupd.enable = true;
 
-  services.bpftune.enable = true;
+  # services.bpftune.enable = true;
 
   programs.iotop.enable = true;
 
   programs.yubikey-manager.enable = true;
 
-  services.keylightd.enable = true;
+  services.keylightd = {
+    enable = true;
+    package = localPackages.keylightd;
+  };
 
   environment.systemPackages = with pkgs; [
     (nvtopPackages.intel.override { amd = true; })

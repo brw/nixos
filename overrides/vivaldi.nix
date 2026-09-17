@@ -1,17 +1,17 @@
 # get the latest vivaldi version from the vivaldi-repo input unless a version is specified
 # yes it's cursed but i kinda like it
 {
-  pkgs,
   inputs,
-  lib ? pkgs.lib,
-  vivaldi ? pkgs.vivaldi,
-  stdenvNoCC ? pkgs.stdenvNoCC,
-  fetchurl ? pkgs.fetchurl,
+  lib,
+  stdenvNoCC,
+  fetchurl,
   vivaldi-repo-amd64 ? inputs.vivaldi-repo-amd64,
   vivaldi-repo-arm64 ? inputs.vivaldi-repo-arm64,
   version ? null,
   sha256 ? null,
 }:
+vivaldi:
+
 let
   useRepo =
     (version == null && sha256 == null)
@@ -46,9 +46,12 @@ vivaldi.overrideAttrs (
   oldAttrs:
   (lib.optionalAttrs (lib.versionOlder oldAttrs.version cleanVer) {
     version = cleanVer;
+
     src = fetchurl {
       url = "https://downloads.vivaldi.com/stable/vivaldi-stable_${fullVer}_${oldAttrs.suffix}.deb";
       sha256 = "sha256:${info.sha256}";
     };
+
+    buildPhase = lib.replaceString "libGLESv2.so " "" oldAttrs.buildPhase;
   })
 )

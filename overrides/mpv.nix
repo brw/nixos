@@ -1,6 +1,7 @@
-{ pkgs }:
+{ makeShellWrapper }:
+mpv:
 
-pkgs.mpv.override (old: {
+mpv.override (old: {
   scripts = with old.mpvScripts; [
     uosc
     mpris
@@ -8,7 +9,7 @@ pkgs.mpv.override (old: {
   ];
 
   # necessary for escaping double quotes in the makeWrapper args
-  makeBinaryWrapper = pkgs.makeShellWrapper;
+  makeBinaryWrapper = makeShellWrapper;
 
   extraMakeWrapperArgs = [
     "--add-flags"

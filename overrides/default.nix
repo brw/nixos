@@ -1,13 +1,18 @@
-{ pkgs, inputs }:
-
 {
-  emmylua-ls = import ./emmylua-ls.nix { inherit pkgs; };
+  lib,
+  inputs,
+  callPackage,
+  mpv,
+  parsec-bin,
+  vivaldi,
+}:
 
-  equicord = import ./equicord.nix { inherit pkgs inputs; };
+lib.recurseIntoAttrs {
+  equicord = callPackage ./equicord.nix { inherit inputs; };
 
-  mpv = import ./mpv.nix { inherit pkgs; };
+  mpv = callPackage ./mpv.nix { } mpv;
 
-  parsec-bin = import ./parsec.nix { inherit pkgs; };
+  parsec-bin = callPackage ./parsec-bin.nix { } parsec-bin;
 
-  vivaldi = import ./vivaldi.nix { inherit pkgs inputs; };
+  vivaldi = callPackage ./vivaldi.nix { inherit inputs; } vivaldi;
 }
