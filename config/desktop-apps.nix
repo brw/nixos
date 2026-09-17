@@ -15,7 +15,7 @@
     signal-desktop
     equibop
     chatterino2
-    libreoffice-fresh
+    libreoffice
     overrides.parsec-bin
     ente-auth
     telegram-desktop

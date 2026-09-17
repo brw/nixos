@@ -41,6 +41,7 @@ in
 
   services.displayManager.gdm = {
     enable = true;
+    autoSuspend = false;
   };
   services.desktopManager.gnome.enable = true;
 
