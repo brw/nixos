@@ -3,6 +3,7 @@
   pkgs,
   ...
 }:
+
 let
   gsettings = pkgs.writeShellScriptBin "gsettings" ''
     cache=/tmp/gsettings-schema-dirs-$UID

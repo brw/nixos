@@ -4,6 +4,7 @@
   config,
   ...
 }:
+
 let
   cfg = config.services.keylightd;
 in

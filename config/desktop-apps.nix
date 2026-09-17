@@ -1,8 +1,5 @@
-{
-  pkgs,
-  overrides,
-  ...
-}:
+{ pkgs, overrides, ... }:
+
 {
   environment.systemPackages = with pkgs; [
     ghostty

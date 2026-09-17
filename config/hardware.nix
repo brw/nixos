@@ -1,4 +1,5 @@
 { pkgs, localPackages, ... }:
+
 {
   hardware.enableAllFirmware = true;
 

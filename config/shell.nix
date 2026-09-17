@@ -1,4 +1,5 @@
 { pkgs, localPackages, ... }:
+
 {
   programs.fish = {
     enable = true;

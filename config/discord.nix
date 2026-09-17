@@ -1,4 +1,5 @@
 { inputs', overrides, ... }:
+
 {
   environment.systemPackages = [
     (inputs'.nixcord.packages.discord.override {

@@ -1,4 +1,5 @@
 { pkgs, ... }:
+
 {
   networking.hostName = "bamibal";
 
@@ -34,7 +35,7 @@
   # networking.networkmanager.connectionConfig = {
   #   "ipv6.method" = "disabled";
   # };
-  # fuck it that doesn't work either just change it for each link using the GUI man
+  # fuck it that doesn't work either just change it for each link using the GUI
 
   networking.nftables.enable = true;
 
