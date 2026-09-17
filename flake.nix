@@ -3,6 +3,8 @@
     nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.zst";
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
+
     # TODO: replace with something like https://github.com/katrinafyi/nix-patcher
     # nixpkgs-patcher.url = "github:gepbird/nixpkgs-patcher";
     # nixpkgs-patcher.url = "/home/bas/git/nixpkgs-patcher";
@@ -123,6 +125,7 @@
               ./hardware-configuration.nix
               ./modules
               ./config
+              inputs.determinate.nixosModules.default
               inputs.nix-index-database.nixosModules.default
               inputs.nix-gaming.nixosModules.platformOptimizations
               inputs.nixos-cli.nixosModules.nixos-cli

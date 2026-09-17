@@ -19,42 +19,55 @@
     allowAliases = false;
   };
 
-  # lesbian nix
   # nixpkgs.overlays = [
-  #   (final: prev: {
-  #     nix = pkgs.lixPackageSets.latest.lix;
-  #   })
+  #   # (_: _: {
+  #   #   nix = pkgs.lixPackageSets.latest.lix;
+  #   # })
+  #   (_: _: inputs'.izlix.packages)
   # ];
 
-  # nixpkgs.overlays = [
-  #   (final: prev: {
-  #     nix = pkgs.nixVersions.latest;
-  #   })
-  # ];
-
-  environment.systemPackages = with pkgs; [
-    inputs'.nix-output-monitor.packages.default
-    nix-diff
-    hydra-check
-    flake-edit
-    cachix
-    nurl
-    nix-update
-    nix-prefetch-scripts
-    nixpkgs-reviewFull
-    dix
-    inputs'.fast-nix-gc.packages.default
-    nix-tree
-    inputs'.nix-hyperfine.packages.default
-  ];
+  environment.systemPackages =
+    with pkgs;
+    [
+      inputs'.nix-output-monitor.packages.default
+      nix-diff
+      hydra-check
+      flake-edit
+      cachix
+      nurl
+      nix-update
+      nix-prefetch-scripts
+      nixpkgs-reviewFull
+      dix
+      inputs'.fast-nix-gc.packages.default
+      nix-tree
+      inputs'.nix-hyperfine.packages.default
+      nix-init
+      (writeShellApplication {
+        name = "ns";
+        runtimeInputs = [
+          fzf
+          nix-search-tv
+        ];
+        text = builtins.readFile "${nix-search-tv.src}/nixpkgs.sh";
+      })
+    ]
+    ++ lib.optionals (pkgs ? nix-graph) [ nix-graph ];
 
   nix = {
-    package = pkgs.nixVersions.latest;
-
     # begone !
     channel.enable = false;
 
-    # distributedBuilds = true;
+    registry = {
+      n.to = {
+        type = "indirect";
+        id = "nixpkgs";
+      };
+      b.to = {
+        type = "git";
+        url = "/etc/nixos#nixosConfiguration.bamibal";
+      };
+    };
 
     settings = {
       extra-experimental-features = [
@@ -65,9 +78,9 @@
 
       keep-derivations = true;
       keep-outputs = true;
-
-      keep-failed = true;
       keep-going = true;
+      # i had this as true but i didn't realize that build directories never get garbage collected
+      keep-failed = false;
 
       auto-optimise-store = true;
 
@@ -79,18 +92,20 @@
       # i know it's slow to have so many substituters but building from source is slower
       # (i also know it's insecure but oh well, trade-offs when you don't have much compute)
       # TODO: https://github.com/manic-systems/ncro
-      substituters = [
-        "https://cache.bas.sh?priority=1"
-        "https://nix-community.cachix.org?priority=2"
-        "https://cache.nixos.org?priority=3"
-        "https://watersucks.cachix.org?priority=4"
-        "https://nix-gaming.cachix.org?priority=5"
-        "https://cache.numtide.com?priority=6"
-        "https://cache.thalheim.io?priority=7"
-        "https://attic.xuyh0120.win/lantian?priority=8"
-        # "ssh-ng://nix.bas.sh?priority=7&max-connections=10&compress=true"
-        "ssh-ng://nix.bas.sh?priority=9&compress=true"
-        # "ssh-ng://eu.nixbuild.net?priority=9&compress=true"
+      substituters = [ "https://nixos-cache-proxy.cofob.dev" ];
+      extra-substituters = [
+        # "https://cache.bas.sh"
+        "https://nix-community.cachix.org"
+        "https://install.determinate.systems"
+        "https://watersucks.cachix.org"
+        "https://nix-gaming.cachix.org"
+        "https://cache.numtide.com"
+        "https://isabelroses.cachix.org"
+        "https://cache.thalheim.io"
+        "https://attic.xuyh0120.win/lantian"
+        # "ssh-ng://nix.bas.sh&max-connections=10&compress=true"
+        # "ssh-ng://nix.bas.sh?priority=100&compress=true"
+        # "ssh-ng://eu.nixbuild.net&compress=true"
       ];
 
       extra-trusted-substituters = [
@@ -99,7 +114,8 @@
       ];
 
       extra-trusted-public-keys = [
-        "cache.bas.sh:HR5UV8Png8fmmG1vCPHmNHyV+lwZPjP3Sk/BjxfGOFk="
+        "cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM="
+        # "cache.bas.sh:HR5UV8Png8fmmG1vCPHmNHyV+lwZPjP3Sk/BjxfGOFk="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "cache.lix.systems:aBnZUw8zA7H35Cz2RyKFVs3H4PlGTLawyY5KRbvJR8o="
         "bas.cachix.org-1:LblbDYEqJwBSbBnM4y+uFbBXItBUuvOIYFnr23MYtBk="
@@ -110,6 +126,7 @@
         "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
         "cache.thalheim.io-1:R7msbosLEZKrxk/lKxf9BTjOOH7Ax3H0Qj0/6wiHOgc="
         "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
+        "isabelroses.cachix.org-1:mXdV/CMcPDaiTmkQ7/4+MzChpOe6Cb97njKmBQQmLPM="
       ];
 
       trusted-users = [ "@wheel" ];
@@ -125,8 +142,14 @@
 
       # already have btrfs compression so don't think i need this
       compress-build-log = false;
+
+      # detsys nix
+      lazy-trees = true;
+      eval-cores = 0;
     };
 
+    # distributedBuilds = true;
+    #
     # buildMachines = [
     #   {
     #     hostName = "nix.bas.sh?max-connections=10&compress=true";
@@ -154,26 +177,29 @@
     flake = "/etc/nixos";
   };
 
-  services.fast-nix-gc = {
-    enable = true;
-    package = inputs'.fast-nix-gc.packages.default;
-    automatic = true;
-    dates = "daily";
-    deleteOlderThan = "7d";
-    keepRecent = "3d";
-  };
-
-  services.fast-nix-optimise = {
-    enable = true;
-    automatic = true;
-    dates = "daily";
-  };
+  # services.fast-nix-gc = {
+  #   enable = true;
+  #   package = inputs'.fast-nix-gc.packages.default;
+  #   automatic = true;
+  #   dates = "daily";
+  #   deleteOlderThan = "7d";
+  #   keepRecent = "3d";
+  # };
+  #
+  # services.fast-nix-optimise = {
+  #   enable = true;
+  #   automatic = true;
+  #   dates = "daily";
+  # };
 
   programs.nixos-cli = {
     enable = true;
+
     package = inputs'.nixos-cli.packages.default.override (old: {
       nix = config.nix.package;
     });
+
+    option-cache.enable = false;
 
     settings = {
       apply = {
