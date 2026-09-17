@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, localPackages, ... }:
 {
   programs.fish = {
     enable = true;
@@ -29,5 +29,6 @@
   environment.systemPackages = with pkgs; [
     starship
     atuin-desktop
+    localPackages.fishPlugins.completion-sync
   ];
 }
