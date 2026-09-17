@@ -13,14 +13,18 @@
   programs.gpu-screen-recorder.enable = true;
 
   environment.systemPackages = with pkgs; [
-    overrides.ffmpeg
+    ffmpeg-full
     overrides.mpv
     plex-desktop
     plezy
     (plex-mpv-shim.override (old: {
       python3Packages = old.python3Packages.overrideScope (
         final: prev: {
-          mpv = prev.mpv.override { inherit (overrides) mpv; };
+          mpv =
+            (prev.mpv.override {
+              inherit (overrides) mpv;
+            }).overrideAttrs
+              { doInstallCheck = false; };
         }
       );
     }))

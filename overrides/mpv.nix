@@ -1,7 +1,6 @@
-{ pkgs, mpv-unwrapped }:
-pkgs.mpv.override (old: {
-  inherit mpv-unwrapped;
+{ pkgs }:
 
+pkgs.mpv.override (old: {
   scripts = with old.mpvScripts; [
     uosc
     mpris
