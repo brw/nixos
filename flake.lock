@@ -1330,7 +1330,7 @@
     "vivaldi-repo-amd64": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-7INdhAh0oEFNKdxr5UJbRoOO4+cXA/ci1TrFRpXcnL4=",
+        "narHash": "sha256-PgL+bXZruaD/qsFgj/GcUFK2rXD9KtovlmUZ+KV2C1g=",
         "type": "file",
         "url": "https://repo.vivaldi.com/archive/deb/dists/stable/main/binary-amd64/Packages"
       },
@@ -1342,7 +1342,7 @@
     "vivaldi-repo-arm64": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-eeQhjNOcFcNkUuqyK/hstveflXYsLvrHkYFQ3M4TDP0=",
+        "narHash": "sha256-8/VJvB00yMps0ybPwBjgpi4cA5zMhnQlSm67WKB60rc=",
         "type": "file",
         "url": "https://repo.vivaldi.com/archive/deb/dists/stable/main/binary-arm64/Packages"
       },
