@@ -12,7 +12,14 @@
     defaultEditor = true;
   };
 
-  programs.nix-ld.enable = true;
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      wayland
+      libxkbcommon
+      vulkan-loader
+    ];
+  };
 
   programs.ccache = {
     enable = true;
@@ -39,7 +46,7 @@
     settings = {
       global = {
         load_dotenv = true;
-        strict_env = true;
+        # strict_env = true;
         warn_timeout = 0;
       };
       whitelist = {
@@ -49,7 +56,12 @@
   };
 
   # TODO: https://github.com/Mic92/direnv-instant/issues/114
-  programs.direnv-instant.enable = true;
+  programs.direnv-instant = {
+    enable = true;
+    settings = {
+      mux_delay = 1;
+    };
+  };
 
   environment.systemPackages = with pkgs; [
     tree-sitter
@@ -61,21 +73,24 @@
     nodejs_latest
     python3
     sccache
-    overrides.emmylua-ls
+    emmylua-ls
+    stylua
     nixd
     nil
     nixfmt-rs
     # vtsls
-    typescript-go
+    typescript
+    typescript-language-server
     inputs'.nix-bun.packages.bun
     pnpm
+    yaml-language-server
+    # yamlfmt
     docker-client
     dockerfmt
     docker-compose-language-service
     docker-language-server
     docker-credential-helpers
     dockerfile-language-server
-    stylua
     oxfmt
     oxlint
     tsgolint
@@ -88,8 +103,10 @@
     gh
     glab
     delta
+    difftastic
     jq
     ijq
+    jaq
     xq-xml
     entr
     shfmt
@@ -110,6 +127,21 @@
     actionlint
     gopls
     rust-analyzer
+    (rust-glancer.overrideAttrs (oldAttrs: {
+      version = "0.2.0";
+
+      src = oldAttrs.src.overrideAttrs {
+        hash = "sha256-3oQpIUsBnYL8dt/wUCHsHcK9/kwJxNlSAw8jbkLf6XY=";
+      };
+
+      cargoDeps = oldAttrs.cargoDeps.overrideAttrs (oldAttrs: {
+        vendorStaging = oldAttrs.vendorStaging.overrideAttrs {
+          outputHash = "sha256-snH6iK+hQgnqc24Z7xXmg457mf5R+ujdc4PGgOXK7Vs=";
+        };
+      });
+
+      doCheck = false;
+    }))
     rustfmt
     vscode-js-debug
     glsl_analyzer
@@ -122,5 +154,7 @@
     superhtml
     zls
     openssl_4_0
+    cntr
+    inputs'.freed-wu-nur.packages.tmux-language-server
   ];
 }

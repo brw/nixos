@@ -8,6 +8,11 @@
     # nixpkgs-patcher.url = "/home/bas/git/nixpkgs-patcher";
     nixpkgs-patcher.url = "github:brw/nixpkgs-patcher/tmp";
 
+    nixpkgs-patch-rust-glancer = {
+      url = "https://github.com/NixOS/nixpkgs/pull/555434.diff";
+      flake = false;
+    };
+
     nix-output-monitor.url = "github:maralorn/nix-output-monitor";
 
     nix-gaming.url = "github:fufexan/nix-gaming";
@@ -63,6 +68,11 @@
     nix-hyperfine.url = "github:Mic92/nix-hyperfine";
 
     nix-bun.url = "github:ryoppippi/nix-bun";
+
+    freed-wu-nur = {
+      url = "github:Freed-Wu/nur-packages";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
